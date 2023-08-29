@@ -1,11 +1,8 @@
-import { Timer } from './timer/timer'
+import { RouterProvider } from 'react-router-dom'
+import { CreateRoutes } from './configs/routers'
 
 function App() {
-  return (
-    <>
-      <Timer text='Timer: ' increment={false} />
-    </>
-  )
+  return <RouterProvider router={CreateRoutes()} />
 }
 
 export default App
