@@ -1,12 +1,17 @@
 import { AppLayout } from '@/components/AppLayout'
 import { Button } from '@/components/Button/Button'
+import { Layout } from '@/components/Layout/Layout'
 import { Timer } from '@/components/Timer'
 import { COLORS } from '@/constants/colors'
+import { TimerContext } from '@/packages/TimerContext'
 import { useTimer } from '@/packages/timer'
 import { css } from '@emotion/css'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { Link, Outlet } from 'react-router-dom'
 
 export const TimerPage = () => {
+  const { time: startTime } = useContext(TimerContext)
+
   const {
     hours,
     minutes,
@@ -20,9 +25,7 @@ export const TimerPage = () => {
     timerReset: reset,
   } = useTimer({
     type: 'stopwatch',
-    startWith: {
-      hours: 1,
-    },
+    startWith: startTime,
     endTime: 0,
   })
 
@@ -37,20 +40,42 @@ export const TimerPage = () => {
   })
 
   return (
-    <AppLayout
-      timer={
-        !isFinished ? (
-          <Timer hours={hours} minutes={minutes} seconds={seconds} />
-        ) : (
-          <h1 className={css({ color: COLORS['text-primary'] })}>Time end!</h1>
-        )
-      }
-      actions={
-        <>
-          <Button onClick={handlerClick}>{isRunning ? 'Stop' : 'Start'}</Button>
-          <Button onClick={() => reset()}>Reset</Button>
-        </>
-      }
-    />
+    <>
+      <AppLayout
+        timer={
+          !isFinished ? (
+            <Timer hours={hours} minutes={minutes} seconds={seconds} />
+          ) : (
+            <h1 className={css({ color: COLORS['text-primary'] })}>
+              Time end!
+            </h1>
+          )
+        }
+        actions={
+          <Layout position='vertical'>
+            <Layout position='horizontal' justifyContent='stretch'>
+              <Button onClick={handlerClick} className={css({ width: '100%' })}>
+                {isRunning ? 'Stop' : 'Start'}
+              </Button>
+              <Button
+                onClick={() => reset()}
+                className={css({ width: '100%' })}
+              >
+                Reset
+              </Button>
+            </Layout>
+            <Link
+              to='/settings'
+              className={css({ width: '100%', marginTop: '10px' })}
+            >
+              <Button className={css({ width: '100%' })}>
+                Got to settings
+              </Button>
+            </Link>
+          </Layout>
+        }
+      />
+      <Outlet />
+    </>
   )
 }

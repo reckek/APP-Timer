@@ -7,10 +7,12 @@ export const CreateRoutes = () => {
     {
       path: '/',
       element: <TimerPage />,
-    },
-    {
-      path: '/settings',
-      element: <SettingsPage />,
+      children: [
+        {
+          path: '/settings',
+          element: <SettingsPage />,
+        },
+      ],
     },
   ])
 }

@@ -5,9 +5,13 @@ import { ButtonHTMLAttributes, FC } from 'react'
 const ButtonStyle = styled.button({
   color: COLORS['text-primary'],
   backgroundColor: COLORS['background-secondary'],
+  border: 'none',
+  padding: '6px',
+  borderRadius: '3px',
+  transition: 'background-color 0.3s',
+  cursor: 'pointer',
   ':hover': {
     backgroundColor: COLORS['background-tertiary'],
-    transition: 'background-color 0.3s',
   },
 })
 
