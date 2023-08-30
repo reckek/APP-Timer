@@ -23,13 +23,15 @@ export const Layout: FC<PropsWithChildren<Partial<LayoutProps>>> = (props) => {
 
   const stylesMap = {
     flex: {
+      display: 'flex',
       flexDirection: flexDirection ?? 'row',
       justifyContent: justifyContent ?? 'flex-start',
       alignContent: alignContent ?? 'flex-start',
       alignItems: alignItems ?? 'stretch',
       gap: gap ?? 0,
+      width: '100%',
     },
-  }
+  } satisfies Record<LayoutProps['type'], CSSObject>
 
   return <div className={css(stylesMap[type])}>{children}</div>
 }
