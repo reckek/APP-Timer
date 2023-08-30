@@ -1,59 +1,35 @@
-import { css } from '@emotion/css'
+import { CSSObject, css } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
 
-interface LayoutProps {
+type LayoutFlex = {
   type: 'flex'
-  position: 'horizontal' | 'vertical'
-  gap: number
-  justifyContent:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | 'stretch'
-  alignContent:
-    | 'flex-start'
-    | 'flex-end'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | 'stretch'
-  alignItems:
-    | 'baseline'
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'stretch'
-    | 'self-start'
-    | 'self-end'
-}
+} & Pick<
+  CSSObject,
+  'flexDirection' | 'justifyContent' | 'alignContent' | 'alignItems'
+>
+
+type LayoutProps = Pick<CSSObject, 'gap'> & LayoutFlex
 
 export const Layout: FC<PropsWithChildren<Partial<LayoutProps>>> = (props) => {
   const {
-    children,
     type = 'flex',
-    position = 'horizontal',
-    justifyContent = 'flex-start',
-    alignContent = 'stretch',
-    alignItems = 'stretch',
-    gap = 4,
+    flexDirection,
+    alignContent,
+    alignItems,
+    justifyContent,
+    gap,
+    children,
   } = props
 
-  return (
-    <div
-      className={css({
-        display: type,
-        flexDirection: position === 'horizontal' ? 'row' : 'column',
-        justifyContent,
-        alignContent,
-        alignItems,
-        gap,
-        width: '100%',
-      })}
-    >
-      {children}
-    </div>
-  )
+  const stylesMap = {
+    flex: {
+      flexDirection: flexDirection ?? 'row',
+      justifyContent: justifyContent ?? 'flex-start',
+      alignContent: alignContent ?? 'flex-start',
+      alignItems: alignItems ?? 'stretch',
+      gap: gap ?? 0,
+    },
+  }
+
+  return <div className={css(stylesMap[type])}>{children}</div>
 }

@@ -14,11 +14,11 @@ export const SettingsPage = () => {
     <ModalWithBackground width={300}>
       <h1 style={{ marginTop: 0 }}>Settings</h1>
       <Layout
-        position='vertical'
+        flexDirection='column'
         justifyContent='space-between'
         alignItems='center'
       >
-        <Layout position='vertical' alignItems='center'>
+        <Layout flexDirection='column' alignItems='center'>
           <FormItem
             label='Hours: '
             type='number'

@@ -52,8 +52,8 @@ export const TimerPage = () => {
           )
         }
         actions={
-          <Layout position='vertical'>
-            <Layout position='horizontal' justifyContent='stretch'>
+          <Layout flexDirection='column'>
+            <Layout flexDirection='column' justifyContent='stretch'>
               <Button onClick={handlerClick} className={css({ width: '100%' })}>
                 {isRunning ? 'Stop' : 'Start'}
               </Button>
